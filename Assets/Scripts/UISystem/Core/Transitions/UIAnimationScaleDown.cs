@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Kha.UI.Core
@@ -10,32 +10,42 @@ namespace Kha.UI.Core
         [SerializeField] private float _targetScale;
         [SerializeField] private RectTransform _objectToScale;
 
-        private Tween _tween;
-        private Vector3 _originalScale;
-
-        private void Awake()
-        {
-            _originalScale = _objectToScale.localScale;
-        }
+        private Coroutine _animationCoroutine;
 
         protected override void PlayAnimation(Action onComplete)
         {
-            _tween?.Kill();
-            _tween = _objectToScale
-                .DOScale(_targetScale, _duration)
-                .SetEase(Ease.OutCirc)
-                .OnComplete(() =>
-                {
-                    onComplete?.Invoke();
-                    _objectToScale.localScale = _originalScale;
-                    _tween = null;
-                });
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+            }
+
+            _animationCoroutine = CoroutineStarter.Instance.StartCoroutine(ScaleDown(onComplete));
         }
-        
+
         protected override void InterruptAnimation()
         {
-            _tween?.Kill();
-            _tween = null;
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+                _animationCoroutine = null;
+            }
+        }
+
+        private IEnumerator ScaleDown(Action onComplete)
+        {
+            var elapsedTime = 0f;
+            var startScale = _objectToScale.localScale;
+
+            while (elapsedTime < _duration)
+            {
+                var newScale = Mathf.Lerp(startScale.x, _targetScale, elapsedTime / _duration);
+                _objectToScale.localScale = new Vector3(newScale, newScale, newScale);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            _objectToScale.localScale = new Vector3(_targetScale, _targetScale, _targetScale);
+            onComplete?.Invoke();
         }
     }
 }

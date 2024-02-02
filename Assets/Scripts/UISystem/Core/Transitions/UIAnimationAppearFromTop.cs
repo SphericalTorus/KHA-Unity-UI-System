@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Kha.UI.Core
@@ -10,7 +10,7 @@ namespace Kha.UI.Core
         [SerializeField] private float _duration;
 
         private Vector2 _originalAnchoredPosition;
-        private Tween _tween;
+        private Coroutine _animationCoroutine;
 
         private void Awake()
         {
@@ -19,18 +19,39 @@ namespace Kha.UI.Core
 
         protected override void PlayAnimation(Action onComplete)
         {
-            _tween?.Kill();
-            _root.anchoredPosition = new Vector2(_root.anchoredPosition.x, _root.rect.height);
-            _tween = _root
-                .DOAnchorPosY(_originalAnchoredPosition.y, _duration)
-                .SetEase(Ease.InOutBack)
-                .OnComplete(() => onComplete?.Invoke());
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+            }
+
+            _animationCoroutine = CoroutineStarter.Instance.StartCoroutine(Animate(_originalAnchoredPosition.y, onComplete));
         }
-        
+
         protected override void InterruptAnimation()
         {
-            _tween?.Kill();
-            _tween = null;
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+                _animationCoroutine = null;
+            }
+        }
+
+        private IEnumerator Animate(float targetY, Action onComplete)
+        {
+            _root.anchoredPosition = new Vector2(_root.anchoredPosition.x, _root.rect.height);
+            var elapsedTime = 0f;
+            var startY = _root.anchoredPosition.y;
+
+            while (elapsedTime < _duration)
+            {
+                var newY = Mathf.Lerp(startY, targetY, elapsedTime / _duration);
+                _root.anchoredPosition = new Vector2(_root.anchoredPosition.x, newY);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            _root.anchoredPosition = new Vector2(_root.anchoredPosition.x, targetY);
+            onComplete?.Invoke();
         }
     }
 }

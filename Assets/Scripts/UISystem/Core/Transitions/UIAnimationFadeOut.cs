@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Kha.UI.Core
@@ -9,29 +9,46 @@ namespace Kha.UI.Core
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _duration = 0.1f;
 
-        private Tween _tween;
+        private Coroutine _animationCoroutine;
 
         private void OnDisable()
         {
             _canvasGroup.alpha = 1f;
         }
-        
+
         protected override void PlayAnimation(Action onComplete)
         {
-            _tween?.Kill();
-            _tween = _canvasGroup
-                .DOFade(0f, _duration)
-                .OnComplete(() => 
-                {
-                    _tween = null;
-                    onComplete?.Invoke();                    
-                });
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+            }
+
+            _animationCoroutine = CoroutineStarter.Instance.StartCoroutine(FadeOut(onComplete));
         }
 
         protected override void InterruptAnimation()
         {
-            _tween?.Kill();
-            _tween = null;
+            if (_animationCoroutine != null)
+            {
+                CoroutineStarter.Instance.StopCoroutine(_animationCoroutine);
+                _animationCoroutine = null;
+            }
+        }
+
+        private IEnumerator FadeOut(Action onComplete)
+        {
+            var elapsedTime = 0f;
+
+            while (elapsedTime < _duration)
+            {
+                var newAlpha = Mathf.Lerp(1f, 0f, elapsedTime / _duration);
+                _canvasGroup.alpha = newAlpha;
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            _canvasGroup.alpha = 0f;
+            onComplete?.Invoke();
         }
     }
 }
