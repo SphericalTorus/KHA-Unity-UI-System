@@ -54,7 +54,7 @@ namespace Kha.UI.Core
         
         public T GetWindow<T>() where T : MonoBehaviour, IUISystemEntity
         {
-            return _windowsLayer.Hierarchy.FindNode<T>(out var depth);
+            return _windowsLayer.Hierarchy.FindNode<T>(out _);
         }
         
         public IUISystemEntity GetWindowOnTop()

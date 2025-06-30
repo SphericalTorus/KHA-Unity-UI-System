@@ -1,6 +1,5 @@
 using Kha.UI.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Kha.UI.Demo
@@ -21,7 +20,7 @@ namespace Kha.UI.Demo
         protected override void OnDisappearanceFinished()
         {
             _detailsButton.onClick.RemoveListener(OnDetailsButtonClick);
-            _closeButton.onClick.AddListener(OnCloseButtonClick);
+            _closeButton.onClick.RemoveListener(OnCloseButtonClick);
         }
 
         public void Init(UISystem uiSystem)

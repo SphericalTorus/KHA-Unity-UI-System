@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Kha.UI.Core
@@ -10,7 +11,7 @@ namespace Kha.UI.Core
 
         public Vector3 UIOffset => _uiOffset;
 
-        private bool _isRenderersListCorrupted;
+        private bool _isRenderersListInvalid;
 
         private void Awake()
         {
@@ -18,36 +19,23 @@ namespace Kha.UI.Core
             {
                 UILogger.LogError($"Renderers are not linked to UIOwner component of {gameObject.name} object. " +
                     $"UI owner will be considered visible constantly.");
-                _isRenderersListCorrupted = true;
+                _isRenderersListInvalid = true;
             }
 
-            for (var i = 0; i < _renderers.Count; i++)
+            foreach (var rendererComponent in _renderers)
             {
-                if (_renderers[i] == null)
+                if (rendererComponent == null)
                 {
                     UILogger.LogError($"UIOwner component of {gameObject.name} object has missing references in renderers list. " +
                         $"UI owner will be considered visible constantly.");
-                    _isRenderersListCorrupted = true;
+                    _isRenderersListInvalid = true;
                 }
             }
         }
 
         public bool IsVisible()
         {
-            if (_isRenderersListCorrupted)
-            {
-                return true;
-            }
-            
-            for (var i = 0; i < _renderers.Count; i++)
-            {
-                if (_renderers[i].isVisible)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return _isRenderersListInvalid || _renderers.Any(r => r.isVisible);
         }
     }
 }

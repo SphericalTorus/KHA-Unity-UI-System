@@ -30,7 +30,7 @@ namespace Kha.UI.Core
             if (uiEntity == null)
             {
                 UILogger.LogError($"Failed to show UIEntity {typeof(T)} because pool returned null.");
-                return default;
+                return null;
             }
 
             uiEntity.Notify(UIEntityNotification.Created, _uiCallbacksBridge);
@@ -97,9 +97,9 @@ namespace Kha.UI.Core
             _entitiesToRemove.Clear();
             _entitiesToRemove.AddRange(entitiesToHide);
 
-            for (var i = 0; i < _entitiesToRemove.Count; i++)
+            foreach (var entityToRemove in _entitiesToRemove)
             {
-                Hide<TDisappearanceAnimation>(_entitiesToRemove[i]);
+                Hide<TDisappearanceAnimation>(entityToRemove);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Kha.UI.Core
         {
             uiEntity.GameObject.SetActive(false);
 
-            if (uiEntity.CurrentLayer != null && uiEntity.CurrentLayer is FlatLayer flatLayer)
+            if (uiEntity.CurrentLayer is FlatLayer flatLayer)
             {
                 flatLayer.Entities.Remove(uiEntity);   
             }

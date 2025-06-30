@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Kha.UI.Core
 {
     /// <summary>
-    /// Basically it is a list which imitates a stack. One day it could be extended to a tree...
+    /// Just a list which imitates stack. One day it might become a tree...
     /// </summary>
     public sealed class HierarchicalEntitiesStorage : IEnumerable
     {

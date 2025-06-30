@@ -57,6 +57,9 @@ namespace Kha.UI.Core
                     uiCallbacksBridge.OnUIEntityReleased(this);
                     _currentLayer = null;
                     break;
+                default:
+                    UILogger.LogWarning($"UI entity {gameObject.name} doesn't support notification type {notification}");
+                    break;
             }
         }
 

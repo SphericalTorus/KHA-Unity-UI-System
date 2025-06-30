@@ -9,7 +9,6 @@ namespace Kha.UI.Core
     public interface IUISystemEntity
     {
         GameObject GameObject { get; }
-        bool Prewarm { get; }
         bool Has3dObject { get; }
         Canvas Canvas { get; }
         bool IsShown { get; }

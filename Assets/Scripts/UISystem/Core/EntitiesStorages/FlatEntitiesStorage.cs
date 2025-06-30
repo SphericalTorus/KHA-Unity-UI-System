@@ -61,9 +61,9 @@ namespace Kha.UI.Core
         {
             foreach (var entitiesOfType in _entitiesByType.Values)
             {
-                for (var i = 0; i < entitiesOfType.Count; i++)
+                foreach (var entity in entitiesOfType)
                 {
-                    yield return entitiesOfType[i];
+                    yield return entity;
                 }
             }
         }

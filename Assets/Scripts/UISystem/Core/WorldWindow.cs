@@ -38,7 +38,6 @@ namespace Kha.UI.Core
 
         protected override void OnAppearanceStarted()
         {
-            base.OnAppearanceStarted();
             IsPositionInitialized = false;
         }
 

@@ -127,7 +127,7 @@ namespace Kha.UI.Core
         private void LogReleaseError(IUISystemEntity entity)
         {
             Debug.LogError(
-                $"An attempt to release ui entity which is not under control of the pool: " +
+                "An attempt to release ui entity which is not under control of the pool: " +
                 $"{entity.GameObject.name}");
 
             var entityType = entity.GetType();

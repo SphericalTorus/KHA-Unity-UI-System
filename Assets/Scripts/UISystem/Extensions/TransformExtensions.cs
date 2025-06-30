@@ -18,13 +18,6 @@ namespace Kha.UI.Extensions
 
             rectTransform.MakeFullScreen();
         }
-        
-        public static bool IsOnScreen(this Transform transform, Camera camera)
-        {
-            var frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
-            var newBounds = new Bounds(transform.position, Vector3.one * 0.02f);
-            return GeometryUtility.TestPlanesAABB(frustumPlanes, newBounds);
-        }
     }
 }
 

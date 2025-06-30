@@ -10,7 +10,7 @@ namespace Kha.UI.Core
         /// </summary>
         /// <param name="uiOwner">Object to be attached to.</param>
         /// <param name="showStrategy">How window must be shown.</param>
-        /// <typeparam name="T">Type of a showing window.</typeparam>
+        /// <typeparam name="T">Type of showing window.</typeparam>
         /// <returns>Command interface to specify additional options.</returns>
         IShowUIEntityCommand<T> Show<T>(UIOwner uiOwner, IShowInHierarchyStrategy showStrategy) 
             where T : WorldWindow;
@@ -19,7 +19,7 @@ namespace Kha.UI.Core
         /// Shows a window with the default strategy and attaches it to a world space object.
         /// </summary>
         /// <param name="uiOwner">Object to be attached to.</param>
-        /// <typeparam name="T">Type of a showing window.</typeparam>
+        /// <typeparam name="T">Type of showing window.</typeparam>
         /// <returns>Command interface to specify additional options.</returns>
         IShowUIEntityCommand<T> Show<T>(UIOwner uiOwner) 
             where T : WorldWindow;
@@ -28,7 +28,7 @@ namespace Kha.UI.Core
         /// Checks if a window is shown and attached to the specified world object.
         /// </summary>
         /// <param name="uiOwner">World object.</param>
-        /// <typeparam name="T">Type of a checking window.</typeparam>
+        /// <typeparam name="T">Type of checking window.</typeparam>
         /// <returns>Is world window shown.</returns>
         bool IsWorldWindowShown<T>(UIOwner uiOwner) 
             where T : WorldWindow;
@@ -38,7 +38,7 @@ namespace Kha.UI.Core
         /// </summary>
         /// <param name="uiOwner">World object.</param>
         /// <param name="hideStrategy">How window must be hidden.</param>
-        /// <typeparam name="T">Type of a hiding window.</typeparam>
+        /// <typeparam name="T">Type of hiding window.</typeparam>
         void Hide<T>(UIOwner uiOwner, IHideInHierarchyStrategy hideStrategy) 
             where T : WorldWindow;
         
@@ -46,7 +46,7 @@ namespace Kha.UI.Core
         /// Hides a window of the specified type from world object's hierarchy with the default strategy.
         /// </summary>
         /// <param name="uiOwner">World object.</param>
-        /// <typeparam name="T">Type of a hiding window.</typeparam>
+        /// <typeparam name="T">Type of hiding window.</typeparam>
         void Hide<T>(UIOwner uiOwner) 
             where T : WorldWindow;
 

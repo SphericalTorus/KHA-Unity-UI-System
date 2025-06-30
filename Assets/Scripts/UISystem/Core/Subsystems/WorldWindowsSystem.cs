@@ -58,7 +58,7 @@ namespace Kha.UI.Core
 
         public void ForceUpdatePositions()
         {
-            _worldWindowsController.ForceUpdateWindowsPositions();
+            _worldWindowsController.ForceUpdateWindowPositions();
         }
     }
 }

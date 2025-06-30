@@ -29,7 +29,7 @@ namespace Kha.UI.Core
             _worldCamera = camera;
         }
 
-        /// <param name="camera">null is expected in case of overlaying mode set on canvas</param>
+        /// <param name="camera">Null is expected in case of overlaying mode set on canvas</param>
         public void InjectUICamera(Camera camera)
         {
             _uiCamera = camera;
@@ -41,7 +41,7 @@ namespace Kha.UI.Core
             
             if (_worldCamera)
             {
-                UpdateWindowsPositions();
+                UpdateWindowPositions();
             }
         }
 
@@ -90,12 +90,12 @@ namespace Kha.UI.Core
                 _layersByOwner[uiOwner].Hierarchy.HasNode<T>();
         }
 
-        public void ForceUpdateWindowsPositions()
+        public void ForceUpdateWindowPositions()
         {
-            UpdateWindowsPositions(true);
+            UpdateWindowPositions(true);
         }
 
-        private void UpdateWindowsPositions(bool force = false)
+        private void UpdateWindowPositions(bool force = false)
         {
             foreach (var layerByObject in _layersByOwner)
             {
