@@ -35,8 +35,7 @@ namespace Kha.UI.Core
             }
         }
 
-        public IShowUIEntityCommand<T> ShowEntity<T>(HierarchicalLayer layer, 
-            IShowInHierarchyStrategy showStrategy)
+        public IShowUIEntityCommand<T> ShowEntity<T>(HierarchicalLayer layer, IShowInHierarchyStrategy showStrategy)
             where T : MonoBehaviour, IUISystemEntity
         {
             if (showStrategy.ActionOnOthers == ActionOnOthers.ReleaseAll)
@@ -54,8 +53,7 @@ namespace Kha.UI.Core
                     _uiCallbacksBridge));
             }
 
-            var showUIEntityCommand = new ShowUIEntityCommand<T>(
-                _uiPool, layer, _uiCallbacksBridge);
+            var showUIEntityCommand = new ShowUIEntityCommand<T>(_uiPool, layer, _uiCallbacksBridge);
             
             _commandsQueue.Enqueue(showUIEntityCommand);
 

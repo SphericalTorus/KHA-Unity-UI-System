@@ -7,7 +7,7 @@ namespace Kha.UI.Core
     /// <summary>
     /// Command which shows a UI entity.
     /// </summary>
-    /// <typeparam name="T">Type of a showing UI entity.</typeparam>
+    /// <typeparam name="T">Type of showing UI entity.</typeparam>
     public sealed class ShowUIEntityCommand<T> : UICommand, IShowUIEntityCommand<T>
         where T : MonoBehaviour, IUISystemEntity
     {

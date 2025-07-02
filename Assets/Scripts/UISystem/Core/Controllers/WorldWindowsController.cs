@@ -53,8 +53,7 @@ namespace Kha.UI.Core
                 _layersByOwner.Add(uiOwner, new HierarchicalLayer(_entitiesHolder));
             }
 
-            return _hierarchicalLayerController.ShowEntity<T>(
-                _layersByOwner[uiOwner], showStrategy);
+            return _hierarchicalLayerController.ShowEntity<T>(_layersByOwner[uiOwner], showStrategy);
         }
 
         public void Hide<T>(UIOwner uiOwner, IHideInHierarchyStrategy hideStrategy) where T : WorldWindow

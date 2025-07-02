@@ -6,7 +6,7 @@ namespace Kha.UI.Core
 {
     /// <summary>
     /// Logic which manipulates UI entities of a flat layer.
-    /// /// Creates, holds and executes related commands.
+    /// Creates, holds and executes related commands.
     /// </summary>
     public sealed class FlatLayerController
     {
